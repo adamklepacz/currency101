@@ -1,28 +1,133 @@
-.App {
+body {
+  padding: 50px 0;
+  background-color: #222;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+header {
+  margin-bottom: 20px;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+header img {
+  max-width: 120px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
+.content {
+  background-color: #fff;
   padding: 20px;
-  color: white;
+  border-radius: 7px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-.App-title {
-  font-size: 1.5em;
+.content .table {
+  margin-bottom: 0;
 }
 
-.App-intro {
-  font-size: large;
+.content .table td, .content .table th {
+  vertical-align: middle;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.content .table .mRight {
+  margin-right: 20px;
+}
+
+.content .row {
+  margin-bottom: 20px;
+}
+
+.content .row h3 {
+  padding-left: 40px;
+}
+
+.content .row .currency-flag {
+  background: url("../images/aud.png") no-repeat left center;
+  background-size: 30px auto;
+}
+
+.content .row .currency-flag.CAD {
+  background-image: url("../images/cad.png");
+}
+
+.content .row .currency-flag.USD {
+  background-image: url("../images/usd.png");
+}
+
+.content .row .currency-flag.JPY {
+  background-image: url("../images/jpy.png");
+}
+
+.content .row .currency-flag.NZD {
+  background-image: url("../images/nzd.png");
+}
+
+.content .row .currency-flag.GBP {
+  background-image: url("../images/gbp.png");
+}
+
+.content .row-select-currency {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .content .currency-from-input {
+    position: relative;
+    padding-right: 20px;
+  }
+  .content .currency-from-input:after {
+    content: '=';
+    display: block;
+    position: absolute;
+    right: -8px;
+    bottom: 4px;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 0.9;
+  }
+  .content .currency-to-input {
+    padding-left: 20px;
+  }
+}
+
+.message {
+  text-align: center;
+}
+
+.message:only-child {
+  margin: 0;
+}
+
+.btn-sm {
+  margin-right: 8px;
+}
+
+.form-inline {
+  margin: 10px auto;
+  width: 235px;
+}
+
+.form-inline .btn-default {
+  margin-left: 5px;
+}
+
+.credits {
+  text-align: center;
+  color: #fff;
+  padding: 70px;
+  opacity: .2;
+  transition: opacity 0.3s linear;
+}
+
+.credits:hover {
+  opacity: 1;
+}
+
+.credits a {
+  color: #fff;
 }

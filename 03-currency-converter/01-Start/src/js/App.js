@@ -1,6 +1,5 @@
 import React from 'react';
-import image from '../images/cash-calculator.svg';
-import css from '../css/App.css';
+import image from '../images/cash-calculator.svg'
 
 class App extends React.Component {
 
@@ -16,8 +15,8 @@ class App extends React.Component {
           <h1>Currency Converter</h1>
         </header>
         <div className="content">
-          <div className="row row-select-currency justify-content-center">
-            <div className="col-md-6">
+          <div className="row row-select-currency">
+            <div className="col-md-6 col-md-offset-3">
               <h2>Select Currency</h2>
               <p>
                 {
@@ -30,7 +29,7 @@ class App extends React.Component {
               </p>
             </div>
           </div>
-
+          
           <div className="row">
             <div className="col-sm-6 currency-from-input">
               <h3 className="currency-flag AUD">Australian Dollars</h3>
