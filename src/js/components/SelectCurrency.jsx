@@ -19,6 +19,6 @@ const SelectCurrency = (props) => {
 
 SelectCurrency.propTypes = {
   currencies: PropTypes.array,
-  onSelectCurrency: PropTypes.func.isRequried
+  onSelectCurrency: PropTypes.func
 }
 export default SelectCurrency;

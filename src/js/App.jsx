@@ -2,6 +2,7 @@ import React from 'react';
 import image from '../images/cash-calculator.svg';
 import data from './data/Data';
 import SelectCurrency from './components/SelectCurrency.jsx';
+import ErrorMessage from './components/ErrorMessage.jsx';
 
 
 class App extends React.Component {
@@ -14,35 +15,58 @@ class App extends React.Component {
       currencyA: data.currencies[0],
       currencyB: data.currencies[1],
       currencyAval: data.currencies[0].sellRate,
-      currencyBval: data.currencies[1].sellRate
+      currencyBval: data.currencies[1].sellRate,
+      wrongValue: false
     }
 
     this.onSelectCurrency = this.onSelectCurrency.bind(this);
   }
 
   onSelectCurrency(code) {
-    const {currencies} = this.state;
+    const {currencies, currencyBval, currencyAval} = this.state;
     const chosenCurr = currencies.filter(currency => currency.code === code);
 
     this.setState({
       currencyB: chosenCurr[0],
-      currencyBval: chosenCurr[0].sellRate
+      currencyBval: currencyAval * chosenCurr[0].sellRate
     })
 
   }
 
   onChangeHandler(e, currency) {
-    const {currencyA, currencyB} = this.state;
+    const {currencyA, currencyB, currencyAval, currencyBval} = this.state;
 
     if(currency === 'A') {
-      console.log('Changinh currency A');
+      let newAValue = e.target.value;
+      this.setState({
+        currencyAval: newAValue,
+        currencyBval: newAValue * currencyB.sellRate
+      })
     } else if(currency === 'B') {
-      console.log('Changinh currency B');
+      let newBValue = e.target.value;
+      this.setState({
+        currencyBval: newBValue,
+        currencyAval: newBValue / currencyB.sellRate
+      })
+    }
+  }
+
+  avoidNegativeAmounts(e) {
+    this.setState({
+      wrongValue: false
+    })
+
+    if(e.target.value <= 0) {
+      this.setState({
+        currencyAval: 0,
+        currencyBval: 0,
+        wrongValue: true
+      })
     }
   }
 
   render(){
-    const {currencies, currencyA, currencyB, currencyAval, currencyBval} = this.state;
+    const {currencies, currencyA, currencyB, currencyAval, currencyBval, wrongValue} = this.state;
 
     return (
       <div>
@@ -76,6 +100,7 @@ class App extends React.Component {
                 <span className="input-group-addon">{currencyA.sign}</span>
                 <input type="number" value={currencyAval} className="form-control" aria-describedby="basic-addon2" step="1" pattern="\d\.\d{2}"  onChange={(e) => {
                     this.onChangeHandler(e, 'A');
+                    this.avoidNegativeAmounts(e);
                   }}/>
                 <span className="input-group-addon" id="basic-addon2">{currencyA.code}</span>
               </div>
@@ -90,6 +115,7 @@ class App extends React.Component {
                 <span className="input-group-addon">{currencyB.sign}</span>
                 <input type="number" value={currencyBval} className="form-control" aria-describedby="basic-addon3" step="1" pattern="\d\.\d{2}" onChange={(e) => {
                     this.onChangeHandler(e, 'B');
+                    this.avoidNegativeAmounts(e);
                   }} />
                 <span className="input-group-addon" id="basic-addon3">{currencyB.code}</span>
               </div>
@@ -101,6 +127,7 @@ class App extends React.Component {
               {
                   //Update to currently selected currency
               }
+              <ErrorMessage wrongValue={wrongValue}/>
               <p>
 
                 {`Exchange Rate ${currencyA.sign} 1 ${currencyA.code} = ${currencyB.sign} ${currencyB.sellRate} ${currencyB.code}`}
